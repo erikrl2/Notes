@@ -1,6 +1,7 @@
-# notes (idea from [connermcd/notes](https://github.com/connermcd/notes))
+# Notes
 
 Shell script for compiling pdf notes with pandoc.
+Idea from [connermcd/notes](https://github.com/connermcd/notes).
 
 ## Usage
 
@@ -57,6 +58,6 @@ Each file has a header indicating the title and date. For instance...
 
 This is used by the script to sort the files chronologically in the exported pdf. Images can be stored in the `img` directory for the corresponding module.
 
-## Vim/bash integration
+## Vim integration
 
 View my [vimrc](https://github.com/erikrl2/dotfiles-win/blob/main/vimfiles/vimrc) at this point of time.
