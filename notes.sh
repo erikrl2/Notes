@@ -1,7 +1,5 @@
 set -e
 
-SEMESTER=1
-
 usage() {
 cat << EOF
 USAGE:

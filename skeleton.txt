@@ -1,0 +1,4 @@
+# [:VIM_EVAL:]expand("%:p:h:t")[:END_EVAL:] - [:VIM_EVAL:]expand("%:t:r")[:END_EVAL:]
+> Date: [:VIM_EVAL:]strftime("%Y-%m-%d")[:END_EVAL:]
+
+## 
