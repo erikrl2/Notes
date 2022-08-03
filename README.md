@@ -10,16 +10,16 @@ Idea from [connermcd/notes](https://github.com/connermcd/notes).
 ## Examples
 
     notes
-       compiles notes for current year/module
+       compiles notes for current semester
 
     notes all
        compiles all notes
 
     notes 1
-       compiles notes for year 1
+       compiles notes for semester 1
 
     notes 1 example
-       compiles notes for year 1 module "example"
+       compiles notes for semester 1 module "example"
 
 ## Dependencies
     * pandoc
@@ -30,7 +30,7 @@ Idea from [connermcd/notes](https://github.com/connermcd/notes).
 
 Notes are organized in a directory specified by the environment variable `$NOTES_DIR`. Inside this directory there are semesters and inside that are modules. The current semester is specified by the environment variable `$SEMESTER`.
 
-    $NOTES_DIR
+    C:/Users/Erik/Dropbox/Notes
     ├── sem1
     │   ├── sem1.pdf
     │   ├── mod1
@@ -46,13 +46,14 @@ Notes are organized in a directory specified by the environment variable `$NOTES
     │   └── ...
     ├── about.md
     ├── fonts.tex
-    ├── Skeleton.txt
+    ├── skeleton.txt
     └── slidy.html
 
 Each file has a header indicating the title and date. For instance...
 
     # Module1 - Topic
     > Date: 2022-08-01
+    > Instructor: McDaniel
 
     ![This is an image](img/image.jpg)\
 
@@ -60,5 +61,4 @@ This is used by the script to sort the files chronologically in the exported pdf
 
 ## Vim integration
 
-View my [vimrc](https://github.com/erikrl2/dotfiles-win/blob/dc1cd954d7be52fd1f9b1d59616741302da8b562/vimfiles/vimrc) at this point in time.
-
+View my [vimrc](https://github.com/erikrl2/dotfiles-win/blob/36e06fd33b5f751cb29786915b3bbd14c1ccbe91/vimfiles/vimrc) at line [139](https://github.com/erikrl2/dotfiles-win/blob/36e06fd33b5f751cb29786915b3bbd14c1ccbe91/vimfiles/vimrc#L139) and [168](https://github.com/erikrl2/dotfiles-win/blob/36e06fd33b5f751cb29786915b3bbd14c1ccbe91/vimfiles/vimrc#L168).
