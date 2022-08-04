@@ -24,7 +24,7 @@ EOF
 }
 
 getnotes() {
-	grep -s -a -H "> Date: " *.txt 2>/dev/null | \
+	grep -s -a -H "> Date: " *.txt | \
 		while read line; do
 			file=$(echo "$line" | sed 's/\([^:]*\):>.*$/\1/')
 			date=$(echo "$line" | sed 's/[^:]*:> Date: \(.*$\)/\1/')
