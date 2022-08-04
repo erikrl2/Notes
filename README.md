@@ -1,7 +1,6 @@
 # Notes
 
-Shell script for compiling pdf notes with pandoc.
-Idea from [connermcd/notes](https://github.com/connermcd/notes).
+Shell script for compiling html notes with pandoc.
 
 ## Usage
 
@@ -23,8 +22,7 @@ Idea from [connermcd/notes](https://github.com/connermcd/notes).
 
 ## Dependencies
     * pandoc
-    * LaTex, ghostscript (you get both with MiKTeX)
-    * Font "TeX Gyre Pagella"
+    * Optional (font): Fenlo
 
 ## Explanation
 
@@ -32,28 +30,25 @@ Notes are organized in a directory specified by the environment variable `$NOTES
 
     C:/Users/Erik/Dropbox/Notes
     ├── sem1
-    │   ├── sem1.pdf
     │   ├── mod1
-    │   │   ├── mod1.pdf
+    │   │   ├── mod1.html
     │   │   ├── img
-    │   │   └── Example.txt
+    │   │   ├── Example1.txt
+    │   │   └── Example2.txt
     │   ├── mod2
     │   ├── mod3
     │   └── ...
     ├── sem2
-    │   ├── sem2.pdf
     │   ├── mod1
     │   └── ...
-    ├── about.md
-    ├── fonts.tex
-    ├── skeleton.txt
-    └── slidy.html
+    ├── metadata.md
+    ├── notes.sh
+    └── skeleton.txt
 
 Each file has a header indicating the title and date. For instance...
 
-    # Module1 - Topic
+    # Topic
     > Date: 2022-08-01
-    > Instructor: McDaniel
 
     ![This is an image](img/image.jpg)\
 
@@ -61,4 +56,4 @@ This is used by the script to sort the files chronologically in the exported pdf
 
 ## Vim integration
 
-View my [vimrc](https://github.com/erikrl2/dotfiles-win/blob/36e06fd33b5f751cb29786915b3bbd14c1ccbe91/vimfiles/vimrc) at line [139](https://github.com/erikrl2/dotfiles-win/blob/36e06fd33b5f751cb29786915b3bbd14c1ccbe91/vimfiles/vimrc#L139) and [168](https://github.com/erikrl2/dotfiles-win/blob/36e06fd33b5f751cb29786915b3bbd14c1ccbe91/vimfiles/vimrc#L168).
+View my [vimrc](https://github.com/erikrl2/dotfiles-win/blob/main/vimfiles/vimrc).

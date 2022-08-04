@@ -24,7 +24,7 @@ EOF
 }
 
 getnotes() {
-	grep -s -a -H "> Date: " *.txt | \
+	grep -s -a -H -m 1 "> Date: " *.txt | \
 		while read line; do
 			file=$(echo "$line" | sed 's/\([^:]*\):>.*$/\1/')
 			date=$(echo "$line" | sed 's/[^:]*:> Date: \(.*$\)/\1/')
@@ -38,19 +38,11 @@ getnotes() {
 	unset course file date
 }
 
-makepdf() {
-	pandoc --pdf-engine=lualatex -H $NOTES_DIR/fonts.tex --toc \
-		-o "${1}.pdf" $NOTES_DIR/about.md $2 &&
-		echo "	Created ${1}.pdf"
-}
-
 makehtml() {
-	# pandoc -w slidy -H $NOTES_DIR/slidy.html -s $2 </dev/null 2>/dev/null | \
-		# sed -e 's/<h[2-9]/<\/div><div class=\"slide\">&/' \
-		# -e 's/slidy.js.gz/slidy.js/' > "${1}.html" &&
-		# echo "Created ${1}.html"
-
-	pandoc -w slidy -H $NOTES_DIR/slidy.html --metadata title=$(basename "$module") -s -o "${1}.html" $2 </dev/null &&
+	pandoc --template=$NOTES_DIR/theme/template.html \
+		-c $NOTES_DIR/theme/css/theme.css -c $NOTES_DIR/theme/css/skylighting-paper-theme.css \
+		--katex --toc --toc-depth=1 -M title=$(basename "$module") \
+		-s -o "${1}.html" $NOTES_DIR/metadata.md $2 </dev/null &&
 		echo "	Created ${1}.html"
 }
 
@@ -65,7 +57,6 @@ makenotes() {
 			oldifs=$IFS
 			IFS=$'\n'
 
-			makepdf "$output_file" "$notes"
 			makehtml "$output_file" "$notes"
 
 			IFS=$oldifs
@@ -73,13 +64,6 @@ makenotes() {
 			unset notes output_file oldifs
 			cd - &>/dev/null
 		done
-		cd "$semester"
-		mgs -sDEVICE=pdfwrite \
-			-dQUIET \
-			-o "$(basename "$semester").pdf" \
-			*/*.pdf &&
-			echo "Created ${semester}.pdf"
-		cd - &>/dev/null
 	done
 }
 

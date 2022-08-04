@@ -1,5 +1,4 @@
-# [expand("%:p:h:t")] - [expand("%:t:r")]
+# [expand("%:t:r")]
 > Date: [strftime("%Y-%m-%d")]
-> Instructor: 
 
 ## 
