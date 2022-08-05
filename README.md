@@ -22,7 +22,7 @@ Shell script for compiling html notes with pandoc.
 
 ## Dependencies
     * pandoc
-    * Optional (font): Fenlo
+    * Font: Fenlo
 
 ## Explanation
 
@@ -30,6 +30,7 @@ Notes are organized in a directory specified by the environment variable `$NOTES
 
     C:/Users/Erik/Dropbox/Notes
     ├── sem1
+    │   ├── index.html
     │   ├── mod1
     │   │   ├── mod1.html
     │   │   ├── img
@@ -39,8 +40,10 @@ Notes are organized in a directory specified by the environment variable `$NOTES
     │   ├── mod3
     │   └── ...
     ├── sem2
+    │   ├── index.html
     │   ├── mod1
     │   └── ...
+    ├── index.html
     ├── metadata.md
     ├── notes.sh
     └── skeleton.txt
