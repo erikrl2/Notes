@@ -1,6 +1,8 @@
 # Notes
 
-Shell script for compiling html notes with pandoc.
+Shell script for compiling markdown notes to html.
+
+Original idea from [connermcd/notes](https://github.com/connermcd/notes) and html/css theme from [jez/pandoc-markdown-css-theme](https://github.com/jez/pandoc-markdown-css-theme).
 
 ## Usage
 
@@ -26,7 +28,7 @@ Shell script for compiling html notes with pandoc.
 
 ## Explanation
 
-Notes are organized in a directory specified by the environment variable `$NOTES_DIR`. Inside this directory there are semesters and inside that are modules. The current semester is specified by the environment variable `$SEMESTER`.
+Notes are organized in a directory specified by the environment variable `$NOTES_DIR`. Inside this directory there are semesters with modules/subjects. The current semester is specified by the environment variable `$SEMESTER`.
 
     C:/Users/Erik/Dropbox/Notes
     ├── sem1
@@ -60,3 +62,25 @@ This is used by the script to sort the files chronologically in the exported pdf
 ## Vim integration
 
 View my [vimrc](https://github.com/erikrl2/dotfiles-win/blob/main/vimfiles/vimrc).
+
+## MIT License
+
+Copyright (c) 2022 erikrl2
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
