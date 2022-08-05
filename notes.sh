@@ -24,7 +24,7 @@ EOF
 }
 
 getnotes() {
-	grep -s -a -H "> Date: " *.txt | \
+	grep -s -a -H -m 1 "> Date: " *.txt | \
 		while read line; do
 			file=$(echo "$line" | sed 's/\([^:]*\):>.*$/\1/')
 			date=$(echo "$line" | sed 's/[^:]*:> Date: \(.*$\)/\1/')
@@ -38,64 +38,67 @@ getnotes() {
 	unset course file date
 }
 
-makepdf() {
-	pandoc --pdf-engine=lualatex -H $NOTES_DIR/fonts.tex --toc \
-		-o "${1}.pdf" $NOTES_DIR/about.md $2 &&
-		echo "	Created ${1}.pdf"
+makehtml() {
+	pandoc --template=$NOTES_DIR/theme/template.html \
+		-c $NOTES_DIR/theme/css/theme.css -c $NOTES_DIR/theme/css/skylighting-paper-theme.css \
+		--katex --toc --toc-depth=1 -M title="$mod_name" \
+		-s -o "$1" "$NOTES_DIR/metadata.md" $2 &&
+		echo "	Created $1"
 }
 
-makehtml() {
-	# pandoc -w slidy -H $NOTES_DIR/slidy.html -s $2 </dev/null 2>/dev/null | \
-		# sed -e 's/<h[2-9]/<\/div><div class=\"slide\">&/' \
-		# -e 's/slidy.js.gz/slidy.js/' > "${1}.html" &&
-		# echo "Created ${1}.html"
-
-	pandoc -w slidy -H $NOTES_DIR/slidy.html --metadata title=$(basename "$module") -s -o "${1}.html" $2 </dev/null &&
-		echo "	Created ${1}.html"
+makehtml_index() {
+	pandoc --template=$NOTES_DIR/theme/template.html \
+		-c $NOTES_DIR/theme/css/theme.css -c $NOTES_DIR/theme/css/skylighting-paper-theme.css \
+		-M title="$3" -s -o "$1" "$2" 2>/dev/null &&
+		echo "	Created $1"
 }
 
 makenotes() {
+	echo -n "" > "$NOTES_DIR/index.md"
 	for semester in $NOTES_DIR/sem$1; do
+		echo -n "" > "$semester/index.md"
 		for module in $semester/$2; do
 			if [[ -f $module ]]; then continue; fi
 			cd "$module"
 			notes=$(getnotes)
-			output_file="$module/"$(basename "$module")
+			mod_name=$(basename "$module")
+			output_file="$module/${mod_name}.html"
 
 			oldifs=$IFS
 			IFS=$'\n'
 
-			makepdf "$output_file" "$notes"
 			makehtml "$output_file" "$notes"
 
 			IFS=$oldifs
 
-			unset notes output_file oldifs
+			echo "* ## [$mod_name]($mod_name/${mod_name}.html)" >> "$semester/index.md"
+
+			unset notes mod_name output_file oldifs
 			cd - &>/dev/null
 		done
-		cd "$semester"
-		mgs -sDEVICE=pdfwrite \
-			-dQUIET \
-			-o "$(basename "$semester").pdf" \
-			*/*.pdf &&
-			echo "Created ${semester}.pdf"
-		cd - &>/dev/null
+		echo "<br/>[_← Go Back_](../index.html)" >> "$semester/index.md"
+		makehtml_index "$semester/index.html" "$semester/index.md" "Semester $1 Modules"
+		rm "$semester/index.md" &>/dev/null
+
+		echo "* # [Semester $1](sem$1/index.html)" >> "$NOTES_DIR/index.md"
 	done
+	makehtml_index "$NOTES_DIR/index.html" "$NOTES_DIR/index.md"
+	rm "$NOTES_DIR/index.md" &>/dev/null
 }
 
 main() {
 	case "$1" in
+		"") echo "Compiling semester ${SEMESTER}..." && makenotes "$SEMESTER" "*"; exit 0;;
 		"all") echo "Compiling all notes..." && makenotes "*" "*"; exit 0;;
-		'') echo "Compiling sem${SEMESTER}..." && makenotes "$SEMESTER" "*"; exit 0;;
 		[0-9]*)
 			if [[ "$2" == "" ]]; then
-				echo "Compiling sem${1}..."
+				echo "Compiling semster ${1}..."
 				makenotes "$1" "*"
 			elif [[ -d "$NOTES_DIR/sem$1/$2" ]]; then
-				echo "Compiling sem$1/${2}..."
+				echo "Compiling semester $1 / module ${2}..."
 				makenotes "$1" "$2"
 			else
-				usage; exit 1
+				echo "Module $2 does not exist!"; exit 1
 			fi
 			exit 0;;
 		*) usage; exit 1;;
