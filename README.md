@@ -22,7 +22,7 @@ Shell script for compiling html notes with pandoc.
 
 ## Dependencies
     * pandoc
-    * Font: Fenlo
+    * Font: Menlo
 
 ## Explanation
 
