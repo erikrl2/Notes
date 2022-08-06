@@ -27,22 +27,22 @@ EOF
 }
 
 make_index() {
-	echo -n "" > "$NOTES_DIR/index.md"
+	echo -e "---\ndate: 'Last Update: "$(date "+%H:%M Uhr am %d.%m.%Y")"'\n---" > "$NOTES_DIR/index.md"
 	for semester in $NOTES_DIR/sem*; do
-		sem_no=$(echo $(basename "$semester") | sed 's/^sem\([0-9]\)$/\1/')
+		if ! [[ $(basename "$semester") =~ ^sem[0-9]+$ ]]; then continue; fi
+		sem_no=$(echo $(basename "$semester") | sed 's/sem//')
 		echo -e "\n# Semester $sem_no" >> "$NOTES_DIR/index.md"
+		unset sem_no
 		for module in $semester/*; do
 			if [[ -f $module ]]; then continue; fi
 			mod_name=$(basename "$module")
-			mod_file="sem$sem_no/$mod_name/${mod_name}.html"
+			mod_file=$(basename "$semester")"/$mod_name/${mod_name}.html"
 			if [[ -f "$NOTES_DIR/$mod_file" ]]; then
 				echo "* ## [$mod_name]($mod_file)" >> "$NOTES_DIR/index.md"
 			fi
 			unset mod_name mod_file
 		done
-		unset sem_no
 	done
-	echo -e "\n---\ndate: 'Last Update: "$(date "+%H:%M Uhr am %d.%m.%Y")"'\n---" >> "$NOTES_DIR/index.md"
 	pandoc --template=$NOTES_DIR/theme/template.html \
 		-c $NOTES_DIR/theme/css/theme.css -c $NOTES_DIR/theme/css/skylighting-paper-theme.css \
 		-M title="Overview" -s -o "$NOTES_DIR/index.html" "$NOTES_DIR/index.md" &&
@@ -67,7 +67,7 @@ get_notes() {
 
 make_notes() {
 	for semester in $NOTES_DIR/sem$1; do
-		sem_no=$(echo $(basename "$semester") | sed 's/^sem\([0-9]\)$/\1/')
+		if ! [[ $(basename "$semester") =~ ^sem[0-9]+$ ]]; then continue; fi
 		for module in $semester/$2; do
 			if [[ -f $module ]]; then continue; fi
 			cd "$module"
@@ -84,7 +84,6 @@ make_notes() {
 			unset notes output_file oldifs
 			cd - &>/dev/null
 		done
-		unset sem_no
 	done
 }
 
@@ -94,7 +93,7 @@ main() {
 			make_notes "*" "*"; make_index; exit 0;;
 		"index") echo "Creating index..." && make_index; exit 0;;
 		"") echo "Compiling semester ${SEMESTER}..." && make_notes "$SEMESTER" "*"; exit 0;;
-		[0-9]*)
+		[0-9]+)
 			if [[ "$2" == "" ]]; then
 				echo "Compiling semster ${1}..."
 				make_notes "$1" "*"
