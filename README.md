@@ -6,21 +6,9 @@ Original idea from [connermcd/notes](https://github.com/connermcd/notes) and htm
 
 ## Usage
 
-    notes [semester|"all"] [module]
-
-## Examples
-
-    notes
-       compiles notes for current semester
-
-    notes all
-       compiles all notes
-
-    notes 1
-       compiles notes for semester 1
-
-    notes 1 example
-       compiles notes for semester 1 module "example"
+    notes [semester|"all"|"index"] [module]
+    
+For more information view the [source code](https://github.com/erikrl2/Notes/blob/main/notes.sh).
 
 ## Dependencies
     * pandoc
@@ -30,9 +18,10 @@ Original idea from [connermcd/notes](https://github.com/connermcd/notes) and htm
 
 Notes are organized in a directory specified by the environment variable `$NOTES_DIR`. Inside this directory there are semesters with modules/subjects. The current semester is specified by the environment variable `$SEMESTER`.
 
+The script can create an index.html file that provides links to all module html files.
+
     C:/Users/Erik/Dropbox/Notes
     ├── sem1
-    │   ├── index.html
     │   ├── mod1
     │   │   ├── mod1.html
     │   │   ├── img
@@ -42,7 +31,6 @@ Notes are organized in a directory specified by the environment variable `$NOTES
     │   ├── mod3
     │   └── ...
     ├── sem2
-    │   ├── index.html
     │   ├── mod1
     │   └── ...
     ├── index.html
@@ -50,7 +38,7 @@ Notes are organized in a directory specified by the environment variable `$NOTES
     ├── notes.sh
     └── skeleton.txt
 
-Each file has a header indicating the title and date. For instance...
+Each text file has a header indicating the title and date. For instance...
 
     # Topic
     > Date: 2022-08-01
