@@ -10,6 +10,8 @@ Original idea from [connermcd/notes](https://github.com/connermcd/notes) and htm
     
 For more information view the [source code](https://github.com/erikrl2/Notes/blob/main/notes.sh).
 
+I use Windows, so I need to explicitly invoke the script via bash like so: `bash notes`.
+
 ## Dependencies
     * pandoc
     * Font: Menlo
@@ -34,6 +36,7 @@ The script can create an index.html file that provides links to all module html 
     │   ├── mod1
     │   └── ...
     ├── index.html
+    ├── metadata.html
     ├── metadata.md
     ├── notes.sh
     └── skeleton.txt
