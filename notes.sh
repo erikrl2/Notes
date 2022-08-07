@@ -81,7 +81,7 @@ make_notes() {
 				-c "../../theme/css/theme.css" -c "../../theme/css/skylighting-paper-theme.css" \
 				--katex --toc --toc-depth=1 -M title=$(basename "$module") \
 				-s -o "$output_file" "$NOTES_DIR/metadata.md" $notes &&
-				echo "	Created $output_file"
+				echo "Created $output_file"
 			IFS=$oldifs
 			unset notes output_file oldifs
 			cd - &>/dev/null
