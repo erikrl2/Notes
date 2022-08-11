@@ -44,9 +44,8 @@ make_index() {
 			unset mod_name mod_file
 		done
 	done
-	pandoc --template="theme/template.html" \
-		-c "theme/css/theme.css" -c "theme/css/skylighting-paper-theme.css" \
-		-M title="Overview" -s -o "index.html" "index.md" &&
+	pandoc --template="theme/template.html" -c "theme/css/theme.css" \
+		-M title="Overview" -s -o "index.html" "index.md" 2>/dev/null &&
 		echo "Created $NOTES_DIR/index.html"
 	rm "index.md" &>/dev/null
 	cd - &>/dev/null
@@ -56,8 +55,8 @@ get_notes() {
 	grep -s -a -H -m 1 "> Date: " *.txt | \
 		while read line; do
 			file=$(echo "$line" | sed 's/\([^:]*\):>.*$/\1/')
-			date=$(echo "$line" | sed 's/[^:]*:> Date: \(.*$\)/\1/')
-			echo "$module$date $file"
+			date=$(echo "$line" | sed 's/[^:]*:> Date: \(.*\)$/\1/')
+			echo "$date $file"
 		done | \
 		sort -n | \
 		while read line; do
