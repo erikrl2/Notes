@@ -1,5 +1,3 @@
 ***
 # [expand("%:t:r")]
 > Date: [strftime("%Y-%m-%d")]
-
-## 
