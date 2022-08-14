@@ -52,7 +52,7 @@ make_index() {
 }
 
 get_notes() {
-	grep -s -a -H -m 1 "> Date: " *.txt | \
+	grep -s -H -m 1 "> Date: " *.txt | \
 		while read line; do
 			file=$(echo "$line" | sed 's/\([^:]*\):>.*$/\1/')
 			date=$(echo "$line" | sed 's/[^:]*:> Date: \(.*\)$/\1/')
@@ -91,7 +91,7 @@ make_notes() {
 main() {
 	case "$1" in
 		"all") echo "Compiling all notes and creating index..." && \
-			make_notes "*" "*"; make_index; exit 0;;
+			make_notes "*" "*"; exit 0;;
 		"index") echo "Creating index..." && make_index; exit 0;;
 		"") echo "Compiling semester ${SEMESTER}..." && make_notes "$SEMESTER" "*"; exit 0;;
 		[0-9]+)
