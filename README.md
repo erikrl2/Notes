@@ -14,7 +14,6 @@ I use Windows, so I need to explicitly invoke the script via bash like so: `bash
 
 ## Dependencies
     * pandoc
-    * Font: Menlo
 
 ## Explanation
 
