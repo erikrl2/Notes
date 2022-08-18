@@ -26,8 +26,8 @@ The script can create an index.html file that provides links to all module html 
     │   ├── mod1
     │   │   ├── mod1.html
     │   │   ├── img
-    │   │   ├── Example1.txt
-    │   │   └── Example2.txt
+    │   │   ├── Example1.md
+    │   │   └── Example2.md
     │   ├── mod2
     │   ├── mod3
     │   └── ...
@@ -35,7 +35,6 @@ The script can create an index.html file that provides links to all module html 
     │   ├── mod1
     │   └── ...
     ├── index.html
-    ├── metadata.html
     ├── metadata.md
     ├── notes.sh
     └── skeleton.txt
@@ -45,9 +44,7 @@ Each text file has a header indicating the title and date. For instance...
     # Topic
     > Date: 2022-08-01
 
-    ![This is an image](img/image.jpg)\
-
-This is used by the script to sort the files chronologically in the exported pdf. Images can be stored in the `img` directory for the corresponding module.
+This is used by the script to sort the files chronologically in the exported pdf.
 
 ## Vim integration
 

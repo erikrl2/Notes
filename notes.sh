@@ -52,7 +52,7 @@ make_index() {
 }
 
 get_notes() {
-	grep -s -H -m 1 "> Date: " *.txt | \
+	grep -s -H -m 1 "> Date: " *.md | \
 		while read line; do
 			file=$(echo "$line" | sed 's/\([^:]*\):>.*$/\1/')
 			date=$(echo "$line" | sed 's/[^:]*:> Date: \(.*\)$/\1/')
@@ -76,7 +76,7 @@ make_notes() {
 			output_file="$module/"$(basename "$module")".html"
 			oldifs=$IFS
 			IFS=$'\n'
-			pandoc --template="../../theme/template.html" -H "$NOTES_DIR/metadata.html" \
+			pandoc --template="../../theme/template.html" \
 				-c "../../theme/css/theme.css" -c "../../theme/css/skylighting-paper-theme.css" \
 				--katex --toc --toc-depth=1 -M title=$(basename "$module") \
 				-s -o "$output_file" "$NOTES_DIR/metadata.md" $notes &&
@@ -90,11 +90,11 @@ make_notes() {
 
 main() {
 	case "$1" in
-		"all") echo "Compiling all notes and creating index..." && \
+		"all") echo "Compiling all notes..." && \
 			make_notes "*" "*"; exit 0;;
 		"index") echo "Creating index..." && make_index; exit 0;;
 		"") echo "Compiling semester ${SEMESTER}..." && make_notes "$SEMESTER" "*"; exit 0;;
-		[0-9]+)
+		[0-9]*)
 			if [[ "$2" == "" ]]; then
 				echo "Compiling semster ${1}..."
 				make_notes "$1" "*"
@@ -110,3 +110,4 @@ main() {
 }
 
 main "$1" "$2"
+
