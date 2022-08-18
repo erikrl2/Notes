@@ -1,6 +1,6 @@
 # Notes
 
-Shell script for compiling markdown notes to html.
+Shell script for compiling markdown notes to html with `pandoc`.
 
 Original idea from [connermcd/notes](https://github.com/connermcd/notes) and html/css theme from [jez/pandoc-markdown-css-theme](https://github.com/jez/pandoc-markdown-css-theme).
 
@@ -11,9 +11,6 @@ Original idea from [connermcd/notes](https://github.com/connermcd/notes) and htm
 For more information view the [source code](https://github.com/erikrl2/Notes/blob/main/notes.sh).
 
 I use Windows, so I need to explicitly invoke the script via bash like so: `bash notes`.
-
-## Dependencies
-    * pandoc
 
 ## Explanation
 
