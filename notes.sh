@@ -34,8 +34,8 @@ make_index() {
 		sem_no=$(echo "$semester" | sed 's/sem//')
 		echo -e "\n# Semester $sem_no" >> index.md
 		unset sem_no
-		for module in $semester/*; do
-			if ! [[ -d $module ]]; then continue; fi
+		for module in "$semester"/*; do
+			if ! [[ -d "$module" ]]; then continue; fi
 			mod_name=$(basename "$module")
 			mod_file="$semester/$mod_name/${mod_name}.html"
 			if [[ -f "$mod_file" ]]; then
@@ -67,10 +67,10 @@ get_notes() {
 }
 
 make_notes() {
-	for semester in $NOTES_DIR/sem$1; do
+	for semester in "$NOTES_DIR"/sem$1; do
 		if ! [[ $(basename "$semester") =~ ^sem[0-9]+$ ]]; then continue; fi
-		for module in $semester/$2; do
-			if ! [[ -d $module ]]; then continue; fi
+		for module in "$semester"/$2; do
+			if ! [[ -d "$module" ]]; then continue; fi
 			cd "$module"
 			notes=$(get_notes)
 			output_file="$module/"$(basename "$module")".html"
