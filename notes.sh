@@ -45,7 +45,7 @@ make_index() {
 		done
 	done
 	pandoc --template="theme/template.html" -c "theme/css/theme.css" \
-		-M title="Overview" -s -o "index.html" "index.md" 2>/dev/null &&
+		-M title="Notes" -s -o "index.html" "index.md" 2>/dev/null &&
 		echo "Created $NOTES_DIR/index.html"
 	rm "index.md" &>/dev/null
 	cd - &>/dev/null
