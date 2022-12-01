@@ -45,7 +45,7 @@ make_index() {
 		done
 	done
 	pandoc --template="theme/template.html" -c "theme/css/theme.css" \
-		-M title="Notes" -s -o "index.html" "index.md" 2>/dev/null &&
+		-M title="Notes" -s -o "index.html" "theme/metadata/index.md" "index.md" 2>/dev/null &&
 		echo "Created $NOTES_DIR/index.html"
 	rm "index.md" &>/dev/null
 	cd - &>/dev/null
@@ -79,9 +79,10 @@ make_notes() {
 			notes=$(get_notes)
 			output_file="$module/"$(basename "$module")".html"
 			pandoc --template="../../theme/template.html" \
-				-c "../../theme/css/theme.css" -c "../../theme/css/skylighting-paper-theme.css" \
+				-c "https://cdn.jsdelivr.net/gh/erikrl2/Notes/theme/css/theme.css" \
+				-c "https://cdn.jsdelivr.net/gh/erikrl2/Notes/theme/css/skylighting-paper-theme.css" \
 				--katex --toc --toc-depth=1 -M title=$(basename "$module") \
-				-s -o "$output_file" "$NOTES_DIR/metadata.md" $notes &&
+				-s -o "$output_file" "$NOTES_DIR/theme/metadata/notes.md" $notes &&
 				echo "Created $output_file"
 			unset notes output_file oldifs
 			cd - &>/dev/null
