@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -e
 
 usage() {
@@ -29,7 +31,9 @@ EOF
 make_index() {
 	cd $NOTES_DIR
 	echo -e "---\ndate: 'Last Update: "$(date "+%H:%M Uhr am %d.%m.%Y")"'\n---" > index.md
-	for semester in sem*; do
+	semdirs=(sem*)
+	for (( i=${#semdirs[@]}-1; i>=0; i-- )); do
+		semester="${semdirs[$i]}"
 		if ! [[ "$semester" =~ ^sem[0-9]+$ ]]; then continue; fi
 		sem_no=$(echo "$semester" | sed 's/sem//')
 		echo -e "\n# Semester $sem_no" >> index.md
@@ -44,6 +48,7 @@ make_index() {
 			unset mod_name mod_file
 		done
 	done
+	unset semdirs
 	pandoc --template="theme/template.html" -c "theme/css/theme.css" \
 		-M title="Notes" -s -o "index.html" "theme/metadata/index.md" "index.md" 2>/dev/null &&
 		echo "Created $NOTES_DIR/index.html"
